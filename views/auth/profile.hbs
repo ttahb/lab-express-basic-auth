@@ -1,2 +1,11 @@
-<h1>Profile Page</h1>
-<p>Welcome {{username}} ! You have successfully signed up!</p>
+{{#if username}}
+  <h2>Welcome, {{ username }}!</h2>
+  <p>This is your profile page my friend!</p>
+  <button>
+    <a href="/profile">Reload the page</a>
+  </button>
+{{else}}
+  
+  <br><p>Still no logged in user, sorry!</p>
+
+{{/if}}

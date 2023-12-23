@@ -1,9 +1,11 @@
 <form action="/signup" method="POST">
     Username:
-    <input type="text" name="username" placeholder="enter username">
+    <input type="text" name="username" placeholder="vijayb">
+    Email:
+    <input type="email" name="email" placeholder="vijay_test@gmail.com">
     Password:
-    <input type="password" name="password" placeholder="enter password">
-    <button type="submit">Register</button>
+    <input type="password" name="password" placeholder="******">
+    <button type="submit">Sign Up</button>
     {{#if error}}
         <p style="color:red;">{{error}}</p>
     {{/if}}
