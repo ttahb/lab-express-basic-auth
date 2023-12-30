@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/User.model');
-const {isLoggedIn, isLoggedOut} = require('../middlewares/route-guard');
+const {isLoggedIn, isLoggedOut, isAdmin} = require('../middlewares/route-guard');
 const saltRounds = 10;
 
 
@@ -96,6 +96,11 @@ router.post('/logout',isLoggedIn, (req, res, next) => {
 router.get("/profile",isLoggedIn, (req, res, next) => {
     console.log("req.session", req.session)
     res.render("auth/profile", req.session.currentUser);
+});
+
+router.get("/admin",isLoggedIn, isAdmin, (req, res, next) => {
+    console.log("req.session", req.session)
+    res.render("auth/admin-only");
 });
 
 
