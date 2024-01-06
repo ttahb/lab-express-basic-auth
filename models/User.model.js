@@ -18,10 +18,20 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+
   role: {
     type: String,
     enum: ['admin', 'editor', 'normal'],
     default: 'normal'
+  },
+  status: {
+    type: String,
+    enum: ['Pending Confirmation', 'Active'],
+    default: 'Pending Confirmation'
+  },
+  confirmationCode: {
+    type: String,
+    unique: true
   }
 });
 

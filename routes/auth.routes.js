@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/User.model');
 const {isLoggedIn, isLoggedOut, isAdmin} = require('../middlewares/route-guard');
+const { transporter} = require("../config/transporter.config");
 const saltRounds = 10;
 
 
@@ -28,7 +29,7 @@ router.post('/signup',isLoggedOut, (req, res, isLoggedOut)=>{
                         return res.render('error');
                     } else {
                         console.log('hashed pwd - ',hash );
-                        return  User.create({username, email, password:hash})
+                        return  User.create({username, email, password:hash, confirmationCode:getRandomToken()})
                         .then((user)=> {
                             req.session.currentUser = user;
                             res.redirect(`/profile/${user.username}`)
@@ -105,3 +106,12 @@ router.get("/admin",isLoggedIn, isAdmin, (req, res, next) => {
 
 
 module.exports = router;
+
+function getRandomToken() {
+    const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let token = '';
+    for (let i = 0; i < 25; i++) {
+        token += characters[Math.floor(Math.random() * characters.length)];
+    }
+    return token;
+}
